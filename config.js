@@ -1,5 +1,5 @@
-import { config as dotenvConfig } from "dotenv";
 import mysql from "mysql2";
+import url from "url";
 
 const dbUrl = url.parse(process.env.DATABASE_URL);
 const [user, password] = dbUrl.auth.split(":");
