@@ -1,7 +1,7 @@
 import db from "../config.js";
 
 export const getUsers = (_, res) => {
-  const q = "SELECT * FROM user";
+  const q = "SELECT * FROM users";
 
   db.query(q, (err, data) => {
     if (err) return res.json(err);
