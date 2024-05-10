@@ -1,4 +1,4 @@
-import { db } from "../db.js";
+import db from "../config.js";
 
 export const getUsers = (_, res) => {
   const q = "SELECT * FROM user";
