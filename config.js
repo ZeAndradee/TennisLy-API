@@ -9,5 +9,3 @@ export function getDBConnection() {
     database: process.env.DB_DATABASE,
   });
 }
-
-export default connection;
