@@ -1,11 +1,9 @@
-import { getDBConnection } from "../config.js";
+import db from "../config.js";
 
 export const getUsers = (_, res) => {
-  const q = "SELECT * FROM users";
-  const db = getDBConnection();
+  const q = "SELECT * FROM user";
 
   db.query(q, (err, data) => {
-    db.end();
     if (err) return res.json(err);
 
     return res.status(200).json(data);

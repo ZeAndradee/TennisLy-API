@@ -1,15 +1,13 @@
+import { config as dotenvConfig } from "dotenv";
 import mysql from "mysql2";
 
-export function getDBConnection() {
-  try {
-    return mysql.createConnection({
-      host: "viaduct.proxy.rlwy.net",
-      port: "32479",
-      user: "root",
-      password: "GMkKaQnUZLFsnPjKMmUGmHMxIRGsOjoF",
-      database: "railway",
-    });
-  } catch (error) {
-    console.error("Error connecting to the database:", error);
-  }
-}
+dotenvConfig();
+
+const connection = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
+});
+
+export default connection;
