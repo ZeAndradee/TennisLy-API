@@ -12,7 +12,7 @@ export const getUsers = (_, res) => {
 
 export const addUsers = (req, res) => {
   const q =
-    "INSERT INTO users(`username`, `email`, `password`, `name`, `userimage`, `userbio`) VALUES(?)";
+    "INSERT INTO users(`username`, `email`, `password`, `name`, `userimage`, `userbio`) VALUES(?,?,?,?,?,?)";
 
   const values = [
     req.body.username,
