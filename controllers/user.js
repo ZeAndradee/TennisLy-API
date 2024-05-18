@@ -41,6 +41,7 @@ export const updateUser = (req, res) => {
     req.body.name,
     req.body.userimage,
     req.body.userbio,
+    req.params.id,
   ];
 
   connection.query(q, [...values], (err) => {
