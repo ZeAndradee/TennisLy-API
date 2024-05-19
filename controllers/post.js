@@ -9,3 +9,20 @@ export const getPosts = (_, res) => {
     return res.status(200).json(data);
   });
 };
+
+export const addPosts = (req, res) => {
+  const q =
+    "INSERT INTO posts(`postid`, `userid`, `postimage`, `postcontent`,`likes`) VALUES(?)";
+  const values = [
+    req.body.postid,
+    req.body.userid,
+    req.body.postimage,
+    req.body.postcontent,
+    req.body.likes,
+  ];
+
+  connection.query(q, [values], (err) => {
+    if (err) return res.json(err);
+    return res.status(200).json("Post adicionado com sucesso");
+  });
+};
