@@ -1,4 +1,4 @@
-import connection from "../config";
+import connection from "../config.js";
 
 export const getPosts = (_, res) => {
   const q = "SELECT * FROM posts";
