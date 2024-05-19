@@ -1,4 +1,4 @@
-import connection from "../config.js";
+import connection from "../config";
 
 export const addUsers = (req, res) => {
   const q =
