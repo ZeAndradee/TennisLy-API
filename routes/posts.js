@@ -8,3 +8,4 @@ router.get("/posts", getPosts);
 router.post("/posts", addPosts);
 
 export default router;
+//
