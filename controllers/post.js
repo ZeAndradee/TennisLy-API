@@ -26,3 +26,12 @@ export const addPosts = (req, res) => {
     return res.status(200).json("Post adicionado com sucesso");
   });
 };
+
+export const deletePost = (req, res) => {
+  const q = "DELETE FROM posts WHERE `postid`= ?";
+
+  connection.query(q, [req.params.postid], (err) => {
+    if (err) return res.json(err);
+    return res.status(200).json("Post deletado com sucesso");
+  });
+};
