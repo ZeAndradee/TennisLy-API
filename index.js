@@ -8,7 +8,10 @@ const app = express();
 
 // Middleware para servir arquivos estáticos da pasta uploads
 const __dirname = path.resolve();
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use(
+  "https://tennisly-api-1.onrender.com/uploads",
+  express.static(path.join(__dirname, "uploads"))
+);
 
 app.use(express.json());
 app.use(cors());
