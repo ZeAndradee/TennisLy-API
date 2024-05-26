@@ -36,7 +36,9 @@ export const addPosts = (req, res) => {
   const values = [
     req.body.postid,
     req.body.userid,
-    req.file ? `/uploads/${req.file.filename}` : null, // Salvando a URL da imagem
+    req.file
+      ? `https://tennisly-api-1.onrender.com/uploads/${req.file.filename}`
+      : null, // Salvando a URL da imagem
     req.body.postcontent,
     req.body.likes,
   ];
