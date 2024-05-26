@@ -1,7 +1,7 @@
 import express from "express";
 import userRoutes from "./routes/user.js";
 import postRoutes from "./routes/post.js";
-
+import path from "path";
 import cors from "cors";
 
 const app = express();
