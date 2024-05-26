@@ -1,6 +1,13 @@
 import multer from "multer";
 import path from "path";
 import connection from "../config.js";
+import fs from "fs";
+
+// Verifique se a pasta "uploads" existe, caso contrário, crie-a
+const uploadDir = "uploads";
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir);
+}
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -29,7 +36,7 @@ export const addPosts = (req, res) => {
   const values = [
     req.body.postid,
     req.body.userid,
-    req.file ? `/uploads/${req.file.filename}` : null,
+    req.file ? `/uploads/${req.file.filename}` : null, // Salvando a URL da imagem
     req.body.postcontent,
     req.body.likes,
   ];
