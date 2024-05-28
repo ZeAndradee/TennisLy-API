@@ -12,7 +12,7 @@ if (!fs.existsSync(uploadDir)) {
 
 const storage = multer.memoryStorage(); // Armazenar na memória ao invés de disco
 
-const upload = multer({ storage: storage });
+export const upload = multer({ storage: storage });
 
 // Função para enviar imagem ao Cloudinary
 const uploadToCloudinary = (fileBuffer) => {
