@@ -1,5 +1,5 @@
 import express from "express";
-import { getPosts, addPosts, deletePost, upload } from "../controllers/post"; // Atualize o caminho conforme necessário
+import { getPosts, addPosts, deletePost, upload } from "../controllers/post.js"; // Atualize o caminho conforme necessário
 
 const router = express.Router();
 
