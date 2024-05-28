@@ -1,6 +1,7 @@
 import multer from "multer";
 import path from "path";
 import connection from "../config.js";
+import cloudinaryConnection from "../cloudnary.js";
 import fs from "fs";
 
 // Verifique se a pasta "uploads" existe, caso contrário, crie-a
@@ -9,16 +10,24 @@ if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir);
 }
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/");
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
-});
+const storage = multer.memoryStorage(); // Armazenar na memória ao invés de disco
 
 const upload = multer({ storage: storage });
+
+// Função para enviar imagem ao Cloudinary
+const uploadToCloudinary = (fileBuffer) => {
+  return new Promise((resolve, reject) => {
+    cloudinary.uploader
+      .upload_stream({ resource_type: "image" }, (error, result) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result);
+        }
+      })
+      .end(fileBuffer);
+  });
+};
 
 export const getPosts = (_, res) => {
   const q = "SELECT * FROM posts";
@@ -30,18 +39,25 @@ export const getPosts = (_, res) => {
   });
 };
 
-export const addPosts = (req, res) => {
+// Função para adicionar post
+export const addPosts = async (req, res) => {
+  const { postid, userid, postcontent, likes } = req.body;
+
+  let imageUrl = null;
+  if (req.file) {
+    try {
+      // Enviar a imagem para o Cloudinary
+      imageUrl = await uploadToCloudinary(req.file.buffer);
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ error: "Erro ao enviar imagem para o Cloudinary" });
+    }
+  }
+
   const q =
     "INSERT INTO posts(`postid`, `userid`, `postimage`, `postcontent`,`likes`) VALUES(?)";
-  const values = [
-    req.body.postid,
-    req.body.userid,
-    req.file
-      ? `https://tennisly-api-1.onrender.com/uploads/${req.file.filename}`
-      : null, // Salvando a URL da imagem
-    req.body.postcontent,
-    req.body.likes,
-  ];
+  const values = [postid, userid, imageUrl, postcontent, likes];
 
   connection.query(q, [values], (err) => {
     if (err) return res.json(err);
