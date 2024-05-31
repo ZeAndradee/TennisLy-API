@@ -67,7 +67,7 @@ export const addPosts = async (req, res) => {
 
 export const updatePost = (req, res) => {
   const q =
-    "UPDATE posts SET `userid` = ?, `postimage` = ?, `postcontent` = ?, `likes` = ?, `comments` = ?,  WHERE `postid` = ?";
+    "UPDATE posts SET `userid` = ?, `postimage` = ?, `postcontent` = ?, `likes` = ?, `comments` = ?  WHERE `postid` = ?";
 
   const values = [
     req.body.userid,
