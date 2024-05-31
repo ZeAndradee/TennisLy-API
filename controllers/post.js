@@ -70,12 +70,12 @@ export const updatePost = (req, res) => {
     "UPDATE posts SET `userid` = ?, `postimage` = ?, `postcontent` = ?, `likes` = ?, `comments` = ?,  WHERE `postid` = ?";
 
   const values = [
-    req.params.postid,
     req.body.userid,
     req.body.postimage,
     req.body.postcontent,
     req.body.likes,
     req.body.comments,
+    req.params.postid,
   ];
 
   connection.query(q, [...values], (err) => {
