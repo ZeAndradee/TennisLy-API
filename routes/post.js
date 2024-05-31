@@ -13,4 +13,5 @@ router.get("/posts", getPosts);
 router.post("/posts", upload.single("image"), addPosts); // Usar o middleware de upload do Multer
 router.delete("/posts/:postid", deletePost);
 router.put("/posts/:postid", updatePost);
+
 export default router;
