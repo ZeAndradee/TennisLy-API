@@ -12,7 +12,7 @@ if (!fs.existsSync(uploadDir)) {
 
 const storage = multer.memoryStorage(); // Armazenar na memória ao invés de disco
 
-export const upload = multer({ storage: storage });
+const upload = multer({ storage: storage });
 
 // Função para enviar imagem ao Cloudinary
 const uploadToCloudinary = (fileBuffer) => {
@@ -65,6 +65,25 @@ export const addPosts = async (req, res) => {
   });
 };
 
+export const updatePost = (req, res) => {
+  const q =
+    "UPDATE posts SET `userid` = ?, `postimage` = ?, `postcontent` = ?, `likes` = ?, `comments` = ?,  WHERE `postid` = ?";
+
+  const values = [
+    req.params.postid,
+    req.body.userid,
+    req.body.postimage,
+    req.body.postcontent,
+    req.body.likes,
+    req.body.comments,
+  ];
+
+  connection.query(q, [...values], (err) => {
+    if (err) return res.json(err);
+    return res.status(200).json("Post alterado com sucesso.");
+  });
+};
+
 export const deletePost = (req, res) => {
   const q = "DELETE FROM posts WHERE `postid`= ?";
 
@@ -73,3 +92,5 @@ export const deletePost = (req, res) => {
     return res.status(200).json("Post deletado com sucesso");
   });
 };
+
+export { upload };

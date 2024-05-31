@@ -35,13 +35,13 @@ export const updateUser = (req, res) => {
     "UPDATE users SET `username` = ?, `email` = ?, `password` = ?, `name` = ?, `userimage` = ?, `userbio` = ?  WHERE `id` = ?";
 
   const values = [
+    req.params.id,
     req.body.username,
     req.body.email,
     req.body.password,
     req.body.name,
     req.body.userimage,
     req.body.userbio,
-    req.params.id,
   ];
 
   connection.query(q, [...values], (err) => {
