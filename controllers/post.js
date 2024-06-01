@@ -41,7 +41,7 @@ export const getPosts = (_, res) => {
 
 // Função para adicionar post
 export const addPosts = async (req, res) => {
-  const { postid, userid, postcontent, likes } = req.body;
+  const { postid, userid, postcontent, likes, comments } = req.body;
 
   let imageUrl = null;
   if (req.file) {
@@ -56,8 +56,8 @@ export const addPosts = async (req, res) => {
   }
 
   const q =
-    "INSERT INTO posts(`postid`, `userid`, `postimage`, `postcontent`,`likes`) VALUES(?)";
-  const values = [postid, userid, imageUrl, postcontent, likes];
+    "INSERT INTO posts(`postid`, `userid`, `postimage`, `postcontent`,`likes`,`comments`) VALUES(?)";
+  const values = [postid, userid, imageUrl, postcontent, likes, comments];
 
   connection.query(q, [values], (err) => {
     if (err) return res.json(err);

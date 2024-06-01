@@ -2,7 +2,7 @@ import connection from "../config.js";
 
 export const addMatches = (req, res) => {
   const q =
-    "INSERT INTO matches(`idplayer1`, `idplayer2`, `sets`, `matchtime`, `fscorep1`, `fscorep2`, `set1p1`, `set1p2`, `set2p1`, `set2p2`, `set3p1`, `set3p2`, `set4p1`, `set4p2`, `set5p1`, `set5p2`, `content`) VALUES(?)";
+    "INSERT INTO matches(`idplayer1`, `idplayer2`, `sets`, `matchtime`, `fscorep1`, `fscorep2`, `set1p1`, `set1p2`, `set2p1`, `set2p2`, `set3p1`, `set3p2`, `set4p1`, `set4p2`, `set5p1`, `set5p2`, `content`, `likes`, `comments`) VALUES(?)";
 
   const values = [
     req.body.idplayer1,
@@ -22,6 +22,8 @@ export const addMatches = (req, res) => {
     req.body.set5p1,
     req.body.set5p2,
     req.body.content,
+    req.body.likes,
+    req.body.comments,
   ];
 
   connection.query(q, [values], (err) => {
@@ -43,7 +45,7 @@ export const getMatches = (_, res) => {
 
 export const updateMatches = (req, res) => {
   const q =
-    "UPDATE matches SET `idplayer1`= ?, `idplayer2`= ?, `sets`= ?, `matchtime`= ?, `fscorep1`= ?, `fscorep2`= ?, `set1p1`= ?, `set1p2`= ?, `set2p1`= ?, `set2p2`= ?, `set3p1`= ?, `set3p2`= ?, `set4p1`= ?, `set4p2`= ?, `set5p1`= ?, `set5p2`= ?, `content`= ?  WHERE `idmatch` = ?";
+    "UPDATE matches SET `idplayer1`= ?, `idplayer2`= ?, `sets`= ?, `matchtime`= ?, `fscorep1`= ?, `fscorep2`= ?, `set1p1`= ?, `set1p2`= ?, `set2p1`= ?, `set2p2`= ?, `set3p1`= ?, `set3p2`= ?, `set4p1`= ?, `set4p2`= ?, `set5p1`= ?, `set5p2`= ?, `content`= ?, `likes`= ?, `comments`= ?  WHERE `idmatch` = ?";
 
   const values = [
     req.body.idplayer1,
@@ -63,6 +65,8 @@ export const updateMatches = (req, res) => {
     req.body.set5p1,
     req.body.set5p2,
     req.body.content,
+    req.body.likes,
+    req.body.comments,
     req.params.idmatch,
   ];
 
