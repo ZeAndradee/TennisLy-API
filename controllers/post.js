@@ -45,6 +45,7 @@ export const addPosts = async (req, res) => {
     "INSERT INTO posts(`timestamp`,`postid`, `userid`, `postimage`, `postcontent`,`likes`,`comments`) VALUES(?)";
   const { timestamp, postid, userid, postcontent, likes, comments } = req.body;
 
+  let imageUrl = null;
   const values = [
     timestamp,
     postid,
@@ -55,7 +56,6 @@ export const addPosts = async (req, res) => {
     comments,
   ];
 
-  let imageUrl = null;
   if (req.file) {
     try {
       // Enviar a imagem para o Cloudinary
