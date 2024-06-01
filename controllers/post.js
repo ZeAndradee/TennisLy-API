@@ -41,7 +41,19 @@ export const getPosts = (_, res) => {
 
 // Função para adicionar post
 export const addPosts = async (req, res) => {
-  const { postid, userid, postcontent, likes, comments } = req.body;
+  const q =
+    "INSERT INTO posts(`timestamp`,`postid`, `userid`, `postimage`, `postcontent`,`likes`,`comments`) VALUES(?)";
+  const { timestamp, postid, userid, postcontent, likes, comments } = req.body;
+
+  const values = [
+    timestamp,
+    postid,
+    userid,
+    imageUrl,
+    postcontent,
+    likes,
+    comments,
+  ];
 
   let imageUrl = null;
   if (req.file) {
@@ -55,10 +67,6 @@ export const addPosts = async (req, res) => {
     }
   }
 
-  const q =
-    "INSERT INTO posts(`postid`, `userid`, `postimage`, `postcontent`,`likes`,`comments`) VALUES(?)";
-  const values = [postid, userid, imageUrl, postcontent, likes, comments];
-
   connection.query(q, [values], (err) => {
     if (err) return res.json(err);
     return res.status(200).json("Post adicionado com sucesso");
@@ -67,9 +75,10 @@ export const addPosts = async (req, res) => {
 
 export const updatePost = (req, res) => {
   const q =
-    "UPDATE posts SET `userid` = ?, `postimage` = ?, `postcontent` = ?, `likes` = ?, `comments` = ?  WHERE `postid` = ?";
+    "UPDATE posts SET `timestamp` = ?, `userid` = ?, `postimage` = ?, `postcontent` = ?, `likes` = ?, `comments` = ?  WHERE `postid` = ?";
 
   const values = [
+    req.body.timestamp,
     req.body.userid,
     req.body.postimage,
     req.body.postcontent,
